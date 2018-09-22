@@ -1,0 +1,36 @@
+@import '~iview/src/styles/index.less';
+
+// 下面是要覆盖的变量，例如：
+@primary-color: black;
+
+.ivu-carousel-dots li button {
+	background-color: white !important;
+}
+
+.ivu-steps-item.ivu-steps-status-process .ivu-steps-head-inner {
+    border-color: #2d8cf0 !important;
+    background-color: #2d8cf0 !important;
+}
+
+.ivu-steps-item.ivu-steps-status-finish .ivu-steps-head-inner {
+    background-color: #fff;
+    border-color: #39f !important;
+}
+.ivu-steps-item.ivu-steps-status-finish .ivu-steps-head-inner>.ivu-steps-icon, .ivu-steps-item.ivu-steps-status-finish .ivu-steps-head-inner span {
+    color: #2d8cf0;
+}
+
+.ivu-steps .ivu-steps-title {
+    display: inline-block;
+    margin-bottom: 4px;
+    padding-right: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #666;
+    background: #fff;
+}
+
+.ivu-steps .ivu-steps-content {
+    font-size: 16px;
+    color: #999;
+}
