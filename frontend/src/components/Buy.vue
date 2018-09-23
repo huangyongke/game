@@ -73,7 +73,7 @@
           <!--index-fang-list/-->
         </div>
         <!--width1190/-->
-        <Page :total="pagedata.totalcount" :page-size="pagedata.countPerPage" :current="pagedata.currentPage" show-elevator show-total class="page" :on-change="pagechange"></Page>
+        <Page :total="pagedata.totalcount" :page-size="pagedata.countPerPage" :current="pagedata.currentPage" show-elevator show-total class="page" @on-change="pagechange"></Page>
       </div>
       <!--content/-->
 
@@ -226,7 +226,8 @@ export default {
         }
       )
     },
-    pagechange() {
+    pagechange(page) {
+      this.pagedata.currentPage = page
       this.getdata()
     },
     gameclick(id) {
@@ -423,6 +424,7 @@ Radio {
   width: 25%;
   height: 243px;
   padding: 0 10px;
+  margin-bottom: 20px;
 }
 .index-fang-list dt {
   height: 188px;

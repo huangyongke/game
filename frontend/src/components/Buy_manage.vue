@@ -14,7 +14,7 @@
         <i-col span='12'>
           <div class="image">
             <img :src="'/static/img/'+game.avatar" width="140" height="100" class="avatar">
-            <Upload name='image' ref='upload1' action="/upload" :show-upload-list="true" :on-success="handleavatarSuccess" :on-remove="handleavatarRemove" :format="['jpg','jpeg','png','gif']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload">
+            <Upload name='image' ref='upload1' action="/api/upload" :show-upload-list="true" :on-success="handleavatarSuccess" :on-remove="handleavatarRemove" :format="['jpg','jpeg','png','gif']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload">
               <i-button type="ghost" icon="ios-cloud-upload-outline">上传账号图片</i-button>
             </Upload>
           </div>
@@ -35,7 +35,7 @@
               </template>
             </div>
 
-            <Upload name='image' ref='upload' :show-upload-list="false" :on-success="handleSuccess" :format="['jpg','jpeg','png']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" multiple type="drag" action="/upload" style="display: inline-block;width:58px;">
+            <Upload name='image' ref='upload' :show-upload-list="false" :on-success="handleSuccess" :format="['jpg','jpeg','png']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload" multiple type="drag" action="/api/upload" style="display: inline-block;width:58px;">
               <div style="width: 58px;height:58px;line-height: 58px;">
                 <Icon type="camera" size="20"></Icon>
               </div>
@@ -79,9 +79,6 @@
             <FormItem label="账户等级" prop="level">
               <Input number class="login-input" v-model="game.level" placeholder="请输入账户等级">
             </FormItem>
-            <FormItem label="介绍:" prop="introduction">
-              <Input class="login-input" type="textarea" :autosize="{minRows: 2,maxRows: 5}" v-model="game.introduction" placeholder="请输入介绍">
-            </FormItem>
           </i-col>
           <i-col span='12'>
             <FormItem label="角色：" prop="figure">
@@ -101,6 +98,9 @@
             </FormItem>
             <FormItem label="道具:" prop="props">
               <Input class="login-input" v-model="game.props" placeholder="请输入道具">
+            </FormItem>
+            <FormItem label="介绍:" prop="introduction">
+              <Input class="login-input" type="textarea" :autosize="{minRows: 2,maxRows: 5}" v-model="game.introduction" placeholder="请输入介绍">
             </FormItem>
             <FormItem label="购买备注：" prop="buy_remark">
               <i-input class="login-input" type="textarea" :autosize="{minRows: 2,maxRows: 5}" v-model="game.buy_remark" placeholder="请输入购买备注">
@@ -469,6 +469,8 @@ export default {
           for (var i = 0; i < this.uploadList.length; i++) {
             this.game.imageList.push(this.uploadList[i].name)
           }
+          console.log(this.uploadList)
+          console.log(this.game.imageList)
           if(this.data.user_id){
             var code = 1
           }else{

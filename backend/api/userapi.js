@@ -134,7 +134,7 @@ exports.findAllUsers = function (req, res) {
         var name = req.body.name;
         var phone = req.body.phone;
         var email = req.body.email;
-        var admin = req.body.admin;
+        var admin = req.body.admin == 'undefined' ? null : req.body.admin
         User.findAllUsers(user_id,name,phone,email,admin,function (result) {
             res.send(result)
         })

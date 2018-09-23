@@ -85,11 +85,12 @@ exports.buyGame = function (req, res) {
 	var props = req.body.props
 	var introduction = req.body.introduction
 	var avatar = req.body.avatar
-	var imageList = req.body.imageList
+	var imageList = req.body['imageList[]']
 	Game.AddGame(area_id, name, avatar, account, password, level, figure, weapons, rare_figure, rare_weapons, artifact, props, introduction, async function (result) {
+		if(imageList){
 		for (var i = 0; i < imageList.length; i++) {
 			await Game.addPictureById(result.dataValues.id, imageList[i], function () {})
-		}
+		}}
 		Sell.addSellGame(result.dataValues.id, sell_price, sell_remark, function (data) {
 			Record.addBuyRecord(user_id, result.dataValues.id, buy_price, buy_remark, function () {
 				if (code == 1) {
@@ -200,11 +201,14 @@ exports.updateGame = function (req, res) {
 	var props = req.body.props
 	var introduction = req.body.introduction
 	var avatar = req.body.avatar
-	var imageList = req.body.imageList
+	var imageList = req.body['imageList[]']
 	Game.updateGameById(game_id, area_id, name, avatar, account, password, level, figure, weapons, rare_figure, rare_weapons, artifact, props, introduction, async function (result) {
+		
 		await Picture.deletePicturesById(game_id, function () {})
-		for (var i = 0; i < imageList.length; i++) {
-			await Game.addPictureById(game_id, imageList[i], function () {})
+		if(imageList){
+			for (var i = 0; i < imageList.length; i++) {
+				await Game.addPictureById(game_id, imageList[i], function () {})
+			}
 		}
 		res.send('success')
 	})

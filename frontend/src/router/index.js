@@ -24,6 +24,7 @@ import SellRecord from '@/components/SellRecord'
 import BuyRecord from '@/components/BuyRecord'
 import AllGames from '@/components/AllGames'
 import NotFind from '@/components/NotFind'
+import About from '@/components/About'
 
 Vue.use(Router)
 
@@ -79,6 +80,11 @@ export default new Router({
       path: '/forget',
       name: 'forget',
       component: Forget
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
     },
     {
       path: '/profile/:id',
