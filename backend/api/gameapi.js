@@ -148,8 +148,8 @@ exports.sellGame = function (req, res) {
 	var istype = req.body.istype
 	var uid = config.uid
 	var token = config.Token
-	var notify_url = 'http://10.22.131.202:8070/api/notify'
-	var return_url = 'http://localhost:8070/paySuccess'
+	var notify_url = config.baseurl + '/api/notify'
+	var return_url = config.baseurl + '/paySuccess'
 	Sell.findSellGameById(sell_id, function (game) {
 		if (game[0]) {
 			if (game[0].state == 1) {
