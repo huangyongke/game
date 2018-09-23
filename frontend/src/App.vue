@@ -29,7 +29,7 @@
           <router-link to="/index"><img src="./assets/logo.png" width="200px" height="60px" /></router-link>
         </h1>
         <div class="phones">
-          <strong>021-63179891</strong>
+          <strong>1915803210</strong>
         </div>
         <div class="clears"></div>
       </div>
@@ -397,15 +397,15 @@ img {
 .phones {
   float: right;
   width: 140px;
-  padding-left: 30px;
-  height: 31px;
+  padding-left: 40px;
+  height: 35px;
   margin: 13px 0 0 0;
-  background: url(./assets/phone.jpg) left center no-repeat;
+  background: url(./assets/qqLogo.png) left center no-repeat;
 }
 .phones strong {
   display: block;
-  height: 29px;
-  line-height: 29px;
+  height: 33px;
+  line-height: 33px;
   font-size: 18px;
   border-top: #4e4e4e 1px solid;
   border-bottom: #4e4e4e 1px solid;
