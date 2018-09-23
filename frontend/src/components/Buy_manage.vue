@@ -54,8 +54,13 @@
                 <Option v-for="item in typelist" :value="item.id">{{ item.name }}</Option>
               </Select>
             </FormItem>
-            <FormItem label="游戏区：" prop="area">
-              <i-select class="login-input" v-model="game.area" placeholder="请选择游戏区">
+            <FormItem label="游戏战区：" prop="zone">
+              <i-select class="login-input" v-model="game.zone" placeholder="请选择游戏战区">
+                <i-option v-for="item in zonelist" :key="item.id" :value="item.id">{{item.name}}</i-option>
+              </i-select>
+            </FormItem>
+            <FormItem label="游戏大区：" prop="area">
+              <i-select class="login-input" v-model="game.area" placeholder="请选择游戏大区">
                 <i-option v-for="item in arealist" :key="item.id" :value="item.id">{{item.area}}</i-option>
               </i-select>
             </FormItem>
@@ -160,6 +165,7 @@ export default {
       data: {},
       typelist: [],
       arealist: [],
+      zonelist: [],
       imgName: '',
       isMounted: false,
       visible: false,
@@ -167,6 +173,7 @@ export default {
         name: '',
         type: '',
         area: '',
+        zone:'',
         account: '',
         password: '',
         buy_price: '',
@@ -199,6 +206,11 @@ export default {
             trigger: 'change'
           }
         ],
+        zone: {
+          required: true,
+          validator: validateAreaCheck,
+          trigger: 'change'
+        },
         area: {
           required: true,
           validator: validateAreaCheck,
@@ -291,7 +303,6 @@ export default {
   mounted() {
     this.isMounted = true
     this.getSession()
-    console.log(this.$route.params)
     this.$http({
       url: '/api/getGameCategory',
       method: 'Get'
@@ -302,7 +313,10 @@ export default {
       this.data = this.$route.params.data
       setTimeout(() => {
         this.game.type = this.data.type_id
-      }, 300)
+      }, 200)
+      setTimeout(() => {
+        this.game.zone = this.data.zone_id
+      }, 400)
       setTimeout(() => {
         this.game.area = this.data.area_id
       }, 500)
@@ -324,12 +338,32 @@ export default {
   },
   watch: {
     'game.type': function() {
+      this.game.zone = ''
+      this.$http({
+        url: '/api/getZoneById',
+        method: 'GET',
+        params: {
+          type_id: this.game.type
+        }
+      }).then(
+        function(res) {
+          this.zonelist = res.body
+
+          // 返回总记录
+          //this.$router.push({path: '/hello', query:{data: res.body}})
+        },
+        function() {
+          this.$Message.error('获取数据失败')
+        }
+      )
+    },
+    'game.zone': function() {
       this.game.area = ''
       this.$http({
         url: '/api/getAreaById',
         method: 'GET',
         params: {
-          type_id: this.game.type
+          zone_id: this.game.zone
         }
       }).then(
         function(res) {
@@ -407,6 +441,9 @@ export default {
                 if(res.body.length>0){
                 this.data = res.body[0]
                 this.game.type = this.data.type_id
+                setTimeout(() => {
+                this.game.zone = this.data.zone_id
+              }, 300)
               setTimeout(() => {
                 this.game.area = this.data.area_id
               }, 500)
@@ -446,6 +483,7 @@ export default {
               buy_id:this.data.buy_id,
               name: this.game.name,
               type_id: this.game.type,
+              zone_id: this.game.zone,
               area_id: this.game.area,
               account: this.game.account,
               password: this.game.password,
@@ -495,7 +533,8 @@ export default {
       })
     },
     handleReset(name) {
-      ;(this.game.avatar = 'game1.png'), this.$refs.upload.clearFiles()
+      this.game.avatar = 'game1.png'
+       this.$refs.upload.clearFiles()
       this.$refs.upload1.clearFiles()
       this.$refs[name].resetFields()
     },

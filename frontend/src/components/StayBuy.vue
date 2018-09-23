@@ -2,27 +2,33 @@
     <Card>
         <row class="content">
             <div class="search-form">
-                <row class="query" style="width:170px">
-                    <label class="top-label" >商品编号</label>
+                <row class="query" style="width:140px">
+                    <label class="top-label">编号</label>
                     <i-input v-model="fromdata.buy_id" @on-enter="getdata()" placeholder="请输入编号" style="width: 100px"></i-input>
                 </row>
-                <row class="query">
+                <row class="query" style="width:140px">
                     <label class="top-label">用户</label>
                     <i-input v-model="fromdata.user_name" @on-enter="getdata()" placeholder="请输入用户" style="width: 100px"></i-input>
                 </row>
-                <row class="query">
+                <row class="query" style="width:140px">
                     <label class="top-label">账户</label>
-                    <i-input v-model="fromdata.account" @on-enter="getdata()" placeholder="请输入游戏账户" style="width: 100px"></i-input>
+                    <i-input v-model="fromdata.account" @on-enter="getdata()" placeholder="请输入账户" style="width: 100px"></i-input>
                 </row>
-                <row class="query" style="width:220px" >
-                    <label class="top-label">游戏类型</label>
-                    <Select v-model="fromdata.type" placeholder="请选择游戏类型" style="width: 130px">
+                <row class="query" style="width:135px" >
+                    <label class="top-label">游戏</label>
+                    <Select v-model="fromdata.type" placeholder="请选择游戏" style="width: 95px">
                         <Option v-for="item in typelist" :value="item.id">{{ item.name }}</Option>
                     </Select>
                 </row>
-                <row class="query" style="width:160px">
-                    <label class="top-label">区域</label>
-                    <Select v-model="fromdata.area" placeholder="请选择游戏区" style="width: 110px">
+                <row class="query" style="width:135px">
+                    <label class="top-label">战区</label>
+                    <Select v-model="fromdata.zone" placeholder="请选择战区" style="width: 95px">
+                        <Option v-for="item in zonelist" :value="item.id">{{ item.name }}</Option>
+                    </Select>
+                </row>
+                <row class="query" style="width:135px">
+                    <label class="top-label">大区</label>
+                    <Select v-model="fromdata.area" placeholder="请选择大区" style="width: 95px">
                         <Option v-for="item in arealist" :value="item.id">{{ item.area }}</Option>
                     </Select>
                 </row>
@@ -49,10 +55,12 @@ export default {
     return {
       typelist: [],
       arealist: [],
+      zonelist: [],
       fromdata: {
         buy_id: '',
         account:'',
         type: '',
+        zone: '',
         area: '',
         user_name:'',
       },
@@ -69,7 +77,12 @@ export default {
           key: 'type'
         },
         {
-          title: '游戏区',
+          title: '战区',
+          align: 'center',
+          key: 'zone'
+        },
+        {
+          title: '大区',
           align: 'center',
           key: 'area'
         },
@@ -109,7 +122,7 @@ export default {
                 },
                   on: {
                     click: () => {
-                      this.$router.push({name: 'buy', params:{data: params.row}})
+                      this.$router.push({name: 'buy_manage', params:{data: params.row}})
                     }
                   }
                 },
@@ -161,13 +174,41 @@ export default {
   },
   watch: {
     'fromdata.type': function() {
+        this.zonelist = []
+      this.fromdata.zone =''
+      this.$http({
+        url: '/api/getZoneById',
+        method: 'GET',
+        params: {
+          type_id: this.fromdata.type
+        }
+      }).then(
+        function(res) {
+          this.zonelist = []
+          this.zonelist.push({
+        id: '',
+        name:'所有'
+      })
+      for(var i=0; i<res.body.length;i++){ 
+        this.zonelist.push(res.body[i])
+      }
+
+          // 返回总记录
+          //this.$router.push({path: '/hello', query:{data: res.body}})
+        },
+        function() {
+          this.$Message.error('获取数据失败')
+        }
+      )
+    },
+    'fromdata.zone': function() {
         this.arealist = []
       this.fromdata.area =''
       this.$http({
         url: '/api/getAreaById',
         method: 'GET',
         params: {
-          type_id: this.fromdata.type
+          zone_id: this.fromdata.zone
         }
       }).then(
         function(res) {
@@ -199,6 +240,7 @@ export default {
           buy_id: this.fromdata.buy_id,
           account:this.fromdata.account,
           area_id: this.fromdata.area,
+          zone_id: this.fromdata.zone,
           category_id: this.fromdata.type,
           user_name: this.fromdata.user_name,
         }
@@ -222,7 +264,6 @@ export default {
               onCancel: () => {}
             })
             } else{
-              console.log(res.body)
                 this.table_data = res.body
             }
           // 返回总记录

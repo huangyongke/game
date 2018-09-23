@@ -15,6 +15,15 @@
               </td>
             </tr>
             <tr>
+              <th>战区：</th>
+              <td>
+                <a @click="zoneclick(-1)" v-bind:class="{'pro-cur':action.zone === -1}">不限</a>
+                <a v-for="(item,index) in zonelist" @click="zoneclick(index)" v-bind:class="{'pro-cur': action.zone === index}">{{item.name}}</a>
+                <!-- <a @click="gameclick(0,'all')" v-bind:class="{'pro-cur':gamelist[0]}">不限</a>
+                <a @click="gameclick(1,'cf')" v-bind:class="{'pro-cur' : gamelist[1]}">cf</a> -->
+              </td>
+            </tr>
+            <tr>
               <th>区域：</th>
               <td>
                 <a @click="areaclick(-1)" v-bind:class="{'pro-cur':action.area === -1}">不限</a>
@@ -53,7 +62,7 @@
                 </div>
               </h3>
               <div class="hui">
-                {{item.type}} | {{item.area}} |
+                {{item.type}} | {{item.zone}} | {{item.area}} | 
                 <template v-if="item.level">
                   {{item.level}}级
                 </template>
@@ -85,14 +94,17 @@ export default {
       },
       area: '',
       sort: '',
+      zone:'',
       action: {
         game: -1,
         price: -1,
         sort: 0,
-        area: -1
+        area: -1,
+        zone:-1,
       },
       gamelist: [],
       arealist: [],
+      zonelist:[],
       pricelist: [
         {
           start: 0,
@@ -156,6 +168,7 @@ export default {
         params: {
           game: this.gamename,
           area: this.area,
+          zone: this.zone,
           startprice: this.price.start,
           endprice: this.price.end,
           sort: this.sort,
@@ -175,12 +188,31 @@ export default {
         }
       )
     },
+    getzone() {
+      this.$http({
+        url: '/api/getZoneById',
+        method: 'GET',
+        params: {
+          type_id: this.gamename
+        }
+      }).then(
+        function(res) {
+          this.zonelist = res.body
+
+          // 返回总记录
+          //this.$router.push({path: '/hello', query:{data: res.body}})
+        },
+        function() {
+          this.$Message.error('获取数据失败')
+        }
+      )
+    },
     getarea() {
       this.$http({
         url: '/api/getAreaById',
         method: 'GET',
         params: {
-          type_id: this.gamename
+          zone_id: this.zone
         }
       }).then(
         function(res) {
@@ -201,14 +233,28 @@ export default {
       this.action.game = id
       if (id == -1) {
         this.gamename = ''
+        this.action.zone = -1
+        this.zone = ''
         this.action.area = -1
-        this.area = ''
+        this.area =''
       } else {
         this.gamename = this.gamelist[id].id
       }
       this.getdata()
+      this.getzone()
       this.getarea()
-      
+    },
+    zoneclick(id) {
+      this.action.zone = id
+      if (id == -1) {
+        this.zone = ''
+        this.action.area = -1
+        this.area =''
+      } else {
+        this.zone = this.zonelist[id].id
+      }
+      this.getdata()
+      this.getarea()
     },
     areaclick(id) {
       this.action.area = id

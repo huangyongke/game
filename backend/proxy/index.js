@@ -7,3 +7,4 @@ exports.Sell = require('./sell');
 exports.Picture = require('./picture');
 exports.Game_area = require('./area');
 exports.Game_category = require('./game_category');
+exports.War_zone = require('./zone');

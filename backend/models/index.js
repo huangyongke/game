@@ -38,6 +38,7 @@ console.log('database connection')
 
 exports.User = require('./user');
 exports.Game_category = require('./game_category');
+exports.War_zone = require('./war_zone');
 exports.Game_area = require('./game_area');
 exports.Game = require('./game');
 exports.Sell = require('./sell');

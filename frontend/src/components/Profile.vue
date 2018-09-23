@@ -11,8 +11,9 @@
                     <h3 class="proTitle">{{info.name}}</h3>
                     <div class="proText1">
                         <p v-if="info.id">编号：{{info.id}}</p>
-                        <p v-if="info['game_area.game_category.name']">游戏：{{info['game_area.game_category.name']}}</p>
-                        <p v-if="info['game_area.area']">游戏区：{{info['game_area.area']}}</p>
+                        <p v-if="info['game_area.war_zone.game_category.name']">游戏：{{info['game_area.game_category.name']}}</p>
+                        <p v-if="info['game_area.war_zone.name']">游戏战区：{{info['game_area.war_zone.name']}}</p>
+                        <p v-if="info['game_area.area']">游戏大区：{{info['game_area.area']}}</p>
                         <p v-if="info['sell.price']">售价：{{info['sell.price']}}</p>
                         <p v-if="info.figure">角色：{{info.figure}}</p>
                         <p v-if="info.weapons">武器：{{info.weapons}}</p>
@@ -87,7 +88,6 @@ export default {
       function(res) {
         this.info = res.body[0]
         if(this.info){
-
         }else{
           this.$Modal.warning({
                 title: '没有该商品',
@@ -116,7 +116,7 @@ export default {
         method: 'Get'
       }).then(function(res) {
         if (res.body === 'login') {
-          this.$Modal.warning({
+          this.$Modal.confirm({
             title: '您还没有登录',
             content: '<p>是否跳转到登录界面登录</p>',
             onOk: () => {

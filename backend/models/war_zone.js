@@ -1,10 +1,11 @@
 var Sequelize = require('sequelize');
 var db = require('./index').DB;
-var War_zone = require('./index').War_zone
+var Game_category = require('./index').Game_category
 // 创建 model
-var Game_area = db.define('game_area', {
-    area:{
+var Ware_zone = db.define('war_zone', {
+    name:{
         type: Sequelize.STRING,
+        unique: true
     },
     // 没有指定 field，表中键名称则与对象键名相同，为 email
 }, {
@@ -14,8 +15,8 @@ var Game_area = db.define('game_area', {
     freezeTableName: false
 });
 
-War_zone.hasMany(Game_area)
-Game_area.belongsTo(War_zone)
+Game_category.hasMany(Ware_zone)
+Ware_zone.belongsTo(Game_category)
 
 // 前者将拥有后者的get/set/add方法,后者id是前者外键
 
@@ -23,6 +24,6 @@ Game_area.belongsTo(War_zone)
 // User.sync() 会创建表并且返回一个Promise对象
 // 如果 force = true 则会把存在的表（如果users表已存在）先销毁再创建表
 // 默认情况下 forse = false
-var game_area = Game_area.sync({ force: false });
+var war_zone = Ware_zone.sync({ force: false });
 
-module.exports = Game_area; 
+module.exports = Ware_zone; 

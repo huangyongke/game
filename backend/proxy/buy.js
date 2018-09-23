@@ -23,9 +23,10 @@ exports.findAllGamesAndCount = function(countPerPage,currentPage,callback){
     });
 }
 
-exports.findAllBuyGame = function (buy_id,user_name,account, area_id,category_id, callback) {
-    var sql = "select buys.id as buy_id,account,buys.password,buys.remark,game_categories.name as type,game_categories.id as type_id,game_areas.area,game_areas.id as area_id,users.name as user_name,users.id as user_id "+
-    "from buys left outer join game_areas on buys.gameAreaId = game_areas.id left outer join game_categories on game_categories.id = game_areas.gameCategoryId,users "
+exports.findAllBuyGame = function (buy_id,user_name,account, area_id,zone_id,category_id, callback) {
+    var sql = "select buys.id as buy_id,account,buys.password,buys.remark,game_categories.name as type,game_categories.id as type_id,game_areas.area,game_areas.id as area_id,users.name as user_name,users.id as user_id, "+
+    "war_zones.id as zone_id,war_zones.name as zone " +
+    "from buys left outer join game_areas on buys.gameAreaId = game_areas.id left outer join war_zones on war_zones.id = game_areas.warZoneId left outer join game_categories on game_categories.id = war_zones.gameCategoryId,users "
     var where = "where users.Id = buys.userId "
     
     //var where = "games.state = 1"
@@ -43,6 +44,9 @@ exports.findAllBuyGame = function (buy_id,user_name,account, area_id,category_id
     }
     if (area_id) {
         where += " and game_areas.id = " + area_id;
+    }
+    if (zone_id) {
+        where += " and war_zones.id = " + zone_id;
     }
     db.query(sql+where).then(function(data){
             callback(data[0])

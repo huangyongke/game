@@ -9,6 +9,7 @@ const addData = async function () {
     await models.Buy.destroy({where:{}});
     await models.Game.destroy({where:{}});
     await models.Game_area.destroy({where:{}});
+    await models.War_zone.destroy({where:{}});
     await models.Game_category.destroy({where:{}});
     await models.User.destroy({where:{}});
     var user1 = await models.User.create({
@@ -34,19 +35,25 @@ const addData = async function () {
         name:'cf'
     });
 
-    var game_area1 = await models.Game_area.create({
-        area:'广东一区'
-    })
-    var game_area2 = await models.Game_area.create({
-        area:'山东一区'
-    })
-    var game_area3 = await models.Game_area.create({
-        area:'河南一区'
+    var war_zone1 = await models.War_zone.create({
+        name:'华北战区'
     })
 
-    game_categary1.addGame_area(game_area1)
-    game_categary1.addGame_area(game_area2)
-    game_categary1.addGame_area(game_area3)
+    game_categary1.addWar_zone(war_zone1)
+
+    var game_area1 = await models.Game_area.create({
+        area:'河北一区'
+    })
+    var game_area2 = await models.Game_area.create({
+        area:'山西一区'
+    })
+    var game_area3 = await models.Game_area.create({
+        area:'北京一区'
+    })
+
+    war_zone1.addGame_area(game_area1)
+    war_zone1.addGame_area(game_area2)
+    war_zone1.addGame_area(game_area3)
     
 
     var game1 = await models.Game.create({

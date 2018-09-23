@@ -1,20 +1,21 @@
 var Game_area = require('../models').Game_area;
+var War_zone = require('../models').War_zone;
 var Game_category = require('../models').Game_category;
 var Sequelize = require('sequelize');
 
-exports.findAreas = function(game,callback){
-    Game_area.findAll({
-        include:[{
-            model:Game_category,
-            where:{
-                name:game
-            }
-        }],
-        raw:true
-    }).then(function(result){
-        callback(result)
-    });
-}
+// exports.findAreas = function(game,callback){
+//     Game_area.findAll({
+//         include:[{
+//             model:Game_category,
+//             where:{
+//                 name:game
+//             }
+//         }],
+//         raw:true
+//     }).then(function(result){
+//         callback(result)
+//     });
+// }
 
 exports.findAreasById = function(id,area_id,name,callback){
     var where = "1 = 1 ";
@@ -26,7 +27,7 @@ exports.findAreasById = function(id,area_id,name,callback){
     }
     Game_area.findAll({
         include:[{
-            model:Game_category,
+            model:War_zone,
             where:{
                 id:id
             }
@@ -40,12 +41,12 @@ exports.findAreasById = function(id,area_id,name,callback){
     });
 }
 
-exports.findGameAreaUnique = function(category_id,name,callback){
+exports.findGameAreaUnique = function(zone_id,name,callback){
     Game_area.findOne({
         include:[{
-            model:Game_category,
+            model:War_zone,
             where:{
-                id:category_id
+                id:zone_id
             }
         }],
         where:{
@@ -57,9 +58,9 @@ exports.findGameAreaUnique = function(category_id,name,callback){
     });
 }
 
-exports.addGameArea = async function(category_id,name,callback){
-    var game_category = await Game_category.findById(category_id)
-    game_category.createGame_area({
+exports.addGameArea = async function(zone_id,name,callback){
+    var war_zone = await War_zone.findById(zone_id)
+    war_zone.createGame_area({
         area:name
     }).then(function(result){
         callback(result)

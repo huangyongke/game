@@ -4,6 +4,7 @@ var upload = require('./fileuploads');
 var User = require('./api/userapi');
 var Buy = require('./api/buyapi');
 var Game = require('./api/gameapi');
+var War_zone = require('./api/zoneapi');
 var Sell = require('./api/sellapi');
 var Game_area = require('./api/areaapi');
 var Game_category = require('./api/game_category');
@@ -43,11 +44,16 @@ router.post('/paySuccess',filter.checkLogin,Game.paySuccess)
 router.post('/getAllGamesAndCount',filter.checkAuth,Game.findAllGamesAndCount)
 router.post('/updateGame',filter.checkAuth,Game.updateGame)
 
-router.get('/getarea',Game_area.findarea)
+//router.get('/getarea',Game_area.findarea)
 router.get('/getAreaById',Game_area.findAreaById)
 router.post('/addGameArea',filter.checkAuth,Game_area.addGameArea)
 router.post('/updateGameArea',filter.checkAuth,Game_area.updateGameArea)
 router.post('/deleteGameArea',filter.checkAuth,Game_area.deleteGameArea)
+
+router.get('/getZoneById',War_zone.findZoneById)
+router.post('/addWarZone',filter.checkAuth,War_zone.addWarZone)
+router.post('/updateWarZone',filter.checkAuth,War_zone.updateWarZone)
+router.post('/deleteWarZone',filter.checkAuth,War_zone.deleteWarZone)
 
 router.get('/getGameCategory',Game_category.findGameCategory)
 router.post('/addGameCategory',filter.checkAuth,Game_category.addGameCategory)

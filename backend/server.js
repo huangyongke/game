@@ -45,7 +45,6 @@ app.get('/', function(req, res){
 
 app.use('/api', router)
 app.get('*', function(req, res){
-  console.log("sdfsfdfs")
   res.render('index');
 });
 var server = app.listen(config.port, function () {

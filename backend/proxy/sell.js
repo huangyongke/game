@@ -3,14 +3,17 @@ var Sell = require('../models').Sell;
 var Game = require('../models').Game;
 var Picture = require('../models').Picture;
 var Game_category = require('../models').Game_category
+var War_zone = require('../models').War_zone
 var Game_area = require('../models').Game_area
 var Sequelize = require('sequelize');
 var db = require('../models/index').DB;
 
-exports.findAllGames = function (game, area, start, end, sort, countPerPage, currentPage, callback) {
-    var sql = "select sells.id as sell_id,sells.price as price, avatar,level,games.name ,game_categories.name as type,game_areas.area " +
+exports.findAllGames = function (game, area,zone, start, end, sort, countPerPage, currentPage, callback) {
+    var sql = "select sells.id as sell_id,sells.price as price, avatar,level,games.name ,game_categories.name as type,game_areas.area, " +
+    "war_zones.id as zone_id,war_zones.name as zone " +
     "from sells, games left outer join game_areas on game_areas.id = games.gameAreaId " +
-    "left outer join game_categories on game_categories.id = game_areas.gameCategoryId "
+    "left outer join war_zones on war_zones.id = game_areas.warZoneId "+
+    "left outer join game_categories on game_categories.id = war_zones.gameCategoryId "
     var where = " where games.id = sells.gameId and games.state = 1";
     //var where = "games.state = 1"
     if (game) {
@@ -18,6 +21,9 @@ exports.findAllGames = function (game, area, start, end, sort, countPerPage, cur
     }
     if (area) {
         where += " and game_areas.id = " + area;
+    }
+    if (zone) {
+        where += " and war_zones.id = " + zone;
     }
     if (start) {
         where += " and sells.price >= " + start;
@@ -35,7 +41,8 @@ exports.findAllGames = function (game, area, start, end, sort, countPerPage, cur
     var offset = countPerPage * (currentPage - 1)
     var limitsql = " LIMIT "+offset+","+limit +";";
     var sql1 = "select count(*) as count from sells, games left outer join game_areas on game_areas.id = games.gameAreaId " +
-    "left outer join game_categories on game_categories.id = game_areas.gameCategoryId "
+    "left outer join war_zones on war_zones.id = game_areas.warZoneId "+
+    "left outer join game_categories on game_categories.id = war_zones.gameCategoryId "
     db.query(sql+where+limitsql).then(function(data){
         db.query(sql1+where).then(function(count){
             var result = {}
@@ -67,10 +74,12 @@ exports.findAllGames = function (game, area, start, end, sort, countPerPage, cur
     // });
 }
 
-exports.findAllSellGame = function (sell_id,game_id, area_id,category_id,state,recommend, callback) {
-    var sql = "select sells.id as sell_id,sells.price as price,recommend,sells.remark, avatar,level,account,games.name as game_name,games.state, games.id as game_id,game_categories.name as type,game_areas.area " +
+exports.findAllSellGame = function (sell_id,game_id, area_id,zone_id,category_id,state,recommend, callback) {
+    var sql = "select sells.id as sell_id,sells.price as price,recommend,sells.remark, avatar,level,account,games.name as game_name,games.state, games.id as game_id,game_categories.name as type,game_areas.area, " +
+    "war_zones.id as zone_id,war_zones.name as zone " +
     "from sells, games left outer join game_areas on game_areas.id = games.gameAreaId " +
-    "left outer join game_categories on game_categories.id = game_areas.gameCategoryId "
+    "left outer join war_zones on war_zones.id = game_areas.warZoneId "+
+    "left outer join game_categories on game_categories.id = war_zones.gameCategoryId "
     var where = " where games.id = sells.gameId";
     //var where = "games.state = 1"
     if (sell_id) {
@@ -78,6 +87,9 @@ exports.findAllSellGame = function (sell_id,game_id, area_id,category_id,state,r
     }
     if (game_id) {
         where += " and games.id = " + game_id;
+    }
+    if (zone_id) {
+        where += " and war_zones.id = " + zone_id;
     }
     if (category_id) {
         where += " and game_categories.id = " + category_id;
@@ -109,7 +121,8 @@ exports.findRecommendGames = function (callback) {
             {
                 model: Game_area,
                 include: [{
-                    model: Game_category
+                    model: War_zone,
+                    include:[Game_category]
                 }]
             }
         ],
@@ -135,7 +148,8 @@ exports.findNewGames = function (callback) {
             {
                 model: Game_area,
                 include: [{
-                    model: Game_category
+                    model: War_zone,
+                    include:[Game_category]
                 }]
             }
         ],
@@ -185,7 +199,8 @@ exports.findSellGameById = function (id, callback) {
             {
                 model: Game_area,
                 include: [{
-                    model: Game_category
+                    model: War_zone,
+                    include:[Game_category]
                 }]
             }
         ],

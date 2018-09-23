@@ -9,8 +9,13 @@
                   <Option v-for="item in typelist" :value="item.id">{{ item.name }}</Option>
                 </Select>
             </FormItem>
-            <FormItem label="游戏区：" prop="area">
-              <i-select v-model="formValidate.area" placeholder="请选择游戏区">
+            <FormItem label="战区：" prop="zone">
+              <i-select v-model="formValidate.zone" placeholder="请选择战区">
+                <i-option v-for="item in zonelist" :key="item.id" :value="item.id">{{item.name}}</i-option>
+              </i-select>
+            </FormItem>
+            <FormItem label="大区：" prop="area">
+              <i-select v-model="formValidate.area" placeholder="请选择大区">
                 <i-option v-for="item in arealist" :key="item.id" :value="item.id">{{item.area}}</i-option>
               </i-select>
             </FormItem>
@@ -50,6 +55,7 @@ export default {
                     callback();
                 }
             };
+    
     const validateAreaCheck = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('请选择区域'));
@@ -59,10 +65,12 @@ export default {
             };
     return {
       typelist:[],
+      zonelist:[],
       arealist:[],
       formValidate: {
         typed: '',
         area: '',
+        zone:'',
         account: '',
         password:'',
         remark:''
@@ -75,6 +83,11 @@ export default {
             trigger: 'change'
           }
         ],
+        zone:{
+          required: true,
+            validator: validateAreaCheck,
+            trigger: 'change'
+        },
         area:{
           required: true,
             validator: validateAreaCheck,
@@ -105,12 +118,32 @@ export default {
   watch:{
     
     'formValidate.typed' : function(){
+      this.formValidate.zone = ''
+      this.$http({
+      url: '/api/getZoneById',
+      method: 'GET',
+      params: {
+        type_id:this.formValidate.typed,
+      }
+    }).then(
+      function(res) {
+        this.zonelist = res.body
+        
+        // 返回总记录
+        //this.$router.push({path: '/hello', query:{data: res.body}})
+      },
+      function() {
+        this.$Message.error('获取数据失败')
+      }
+    )
+    },
+    'formValidate.zone' : function(){
       this.formValidate.area = ''
       this.$http({
       url: '/api/getAreaById',
       method: 'GET',
       params: {
-        type_id:this.formValidate.typed,
+        zone_id:this.formValidate.zone,
       }
     }).then(
       function(res) {

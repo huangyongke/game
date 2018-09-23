@@ -19,12 +19,13 @@ var getMD5 = require('../utils/index').getMD5
 
 exports.findAllGamesAndCount = function (req, res) {
 	var game_name = req.body.game_name
-	var game_id = req.body.game_id
-	var type_id = req.body.type_id
-	var area_id = req.body.area_id
+	var game_id = req.body.game_id ? req.body.game_id : null
+	var type_id = req.body.type_id == 'undefined' ?  null :req.body.type_id
+	var zone_id = req.body.zone_id == 'undefined' ?  null : req.body.zone_id
+	var area_id = req.body.area_id == 'undefined' ?  null : req.body.area_id
 	var account = req.body.account
-	var state = req.body.state
-	Game.findAllGamesAndCount(game_id, type_id, area_id, game_name, account, state, function (result) {
+	var state = req.body.state == 'undefined' ?  null : req.body.state
+	Game.findAllGamesAndCount(game_id, type_id,zone_id, area_id, game_name, account, state, function (result) {
 		res.send(result)
 	})
 }

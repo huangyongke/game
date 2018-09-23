@@ -15,10 +15,11 @@ exports.findAllGames = function(req, res) {
 exports.findAllBuyGame = function(req, res) {
 	var user_name = req.body.username
 	var account = req.body.account
-	var area_id = req.body.area_id
-	var category_id = req.body.category_id
+	var area_id = req.body.area_id == 'undefined' ?  null : req.body.area_id
+	var zone_id = req.body.zone_id == 'undefined' ?  null : req.body.zone_id
+	var category_id = req.body.category_id == 'undefined' ?  null : req.body.category_id
 	var buy_id = req.body.buy_id
-	Buy.findAllBuyGame(buy_id,user_name,account,area_id,category_id,function(result){
+	Buy.findAllBuyGame(buy_id,user_name,account,area_id,zone_id,category_id,function(result){
 		res.send(result)
 	})
 }

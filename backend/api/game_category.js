@@ -1,5 +1,5 @@
 var Game_category = require('../proxy').Game_category;
-var Game_area = require('../proxy').Game_area;
+var War_zone = require('../proxy').War_zone;
 var url = require('url');
 
 exports.findGameCategory = function(req, res) {
@@ -44,8 +44,8 @@ exports.addGameCategory = function(req, res) {
 
 exports.deleteGameCategory = function(req, res) {
 	var id = req.body.id;
-	Game_area.findAreasById(id,null,null,function(areas){
-		if(areas.length>0){
+	War_zone.findzonesById(id,null,null,function(zones){
+		if(zones.length>0){
 			res.send("exist")
 		}else{
 			Game_category.deleteGameCategory(id,function(result){

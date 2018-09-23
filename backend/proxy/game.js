@@ -1,5 +1,6 @@
 var Game = require('../models').Game;
 var Game_area = require('../models').Game_area;
+var War_zone = require('../models').War_zone
 var Game_category = require('../models').Game_category;
 var Picture = require('../models').Picture;
 var Sequelize = require('sequelize');
@@ -27,9 +28,10 @@ var db = require('../models/index').DB;
 
 
 
-exports.findAllGamesAndCount = function(game_id,type_id,area_id,game_name,account,state,callback){
-    var sql = "select *,games.id as game_id,games.name as game_name,game_areas.id as area_id,game_categories.name as type,game_categories.id as type_id from games left outer join game_areas on games.gameAreaId = game_areas.id left outer join " +
-    "game_categories on game_categories.id = game_areas.gameCategoryId "
+exports.findAllGamesAndCount = function(game_id,type_id,zone_id,area_id,game_name,account,state,callback){
+    var sql = "select *,games.id as game_id,games.name as game_name,game_areas.id as area_id,war_zones.id as zone_id,war_zones.name as zone,game_categories.name as type,game_categories.id as type_id from games left outer join game_areas on games.gameAreaId = game_areas.id "+
+    "left outer join war_zones on war_zones.id = game_areas.warZoneId "+ 
+    "left outer join game_categories on game_categories.id = war_zones.gameCategoryId "
     var where = "where 1 = 1";
       if(game_id){
           where += " and games.id = " + game_id; 
@@ -43,6 +45,9 @@ exports.findAllGamesAndCount = function(game_id,type_id,area_id,game_name,accoun
       if(type_id){
           where += " and game_categories.id = " + type_id; 
       }
+      if (zone_id) {
+        where += " and war_zones.id = " + zone_id;
+    }
       if(area_id){
           where += " and game_areas.id = " + area_id;
       }

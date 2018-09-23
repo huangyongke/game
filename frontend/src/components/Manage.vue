@@ -25,7 +25,7 @@
                 </template>
                 <MenuItem name="userManage">用户管理</MenuItem>
                 <MenuItem name="species">游戏管理</MenuItem>
-                <MenuItem name="buy">购买游戏</MenuItem>
+                <MenuItem name="buy_manage">购买游戏</MenuItem>
                 <MenuItem name="allGames">所有游戏</MenuItem>
                 <MenuItem name="staySell">待卖游戏</MenuItem>
                 <MenuItem name="stayBuy">待买游戏</MenuItem>
@@ -56,10 +56,8 @@ export default {
   data() {
     return {
       path: '',
-      path1: '',
       admin: 1,
       opens: [],
-      opens1: []
     }
   },
   //这两个map是vuex的部分
@@ -70,20 +68,17 @@ export default {
       this.$route.name === 'personalSell'
     ) {
       this.opens = ['2']
-      this.opens1 = ['2']
     } else if (
       this.$route.name === 'user' ||
       this.$route.name === 'modifyPassword'
     ) {
       this.opens = ['1']
-      this.opens1 = ['1']
     } else {
       this.opens = ['3']
     }
   },
   mounted() {
     this.path = this.$route.name
-    this.path1 = this.$route.name
     this.getSession()
   },
   methods: {
@@ -103,7 +98,6 @@ export default {
             onCancel: () => {}
           })
         } else {
-          console.log(res.body)
           this.id = res.body.id
           this.admin = res.body.admin
           

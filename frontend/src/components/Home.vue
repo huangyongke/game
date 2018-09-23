@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width:100%">
     <Carousel autoplay>
       <Carousel-item>
         <img src="../assets/cf4.jpg" class="banner" />
@@ -29,7 +29,8 @@
                 </div>
               </h3>
               <div class="hui">
-                {{game['game_area.game_category.name']}} |
+                {{game['game_area.war_zone.game_category.name']}} |
+                {{game['game_area.war_zone.name']}} |
                 {{game['game_area.area']}} |
                 <template v-if="game.level">
                   {{game.level}}级 
@@ -57,7 +58,8 @@
                 </div>
               </h3>
               <div class="hui">
-                {{game['game_area.game_category.name']}} |
+                {{game['game_area.war_zone.game_category.name']}} |
+                {{game['game_area.war_zone.name']}} |
                 {{game['game_area.area']}} |
                 <template v-if="game.level">
                   {{game.level}}级 
@@ -88,11 +90,9 @@ export default {
   },
   //这两个map是vuex的部分
   created(){
-    console.log('created')
   },
   computed: {},
   mounted() {
-    console.log('mounted')
     this.$http({
       url: '/api/getRecommendGames',
       method: 'GET'

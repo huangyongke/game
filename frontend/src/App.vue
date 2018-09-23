@@ -87,34 +87,7 @@
       <!--width1190/-->
     </div>
     <!--xinren/-->
-    <div class="footer">
-      <div class="width1190">
-        <div class="fl">
-          <router-link to="/index">
-            <strong>邻居大妈</strong>
-          </router-link>
-          <router-link to="/about">关于我们</router-link>
-          <router-link to="/contact">联系我们</router-link>
-          <router-link to="/manage/user">个人中心</router-link>
-        </div>
-        <div class="fr">
-          <dl>
-            <dt><img src="./assets/erweima.png" width="76" height="76" /></dt>
-            <dd>微信扫一扫<br />房价点评，精彩发布</dd>
-          </dl>
-          <dl>
-            <dt><img src="./assets/erweima.png" width="76" height="76" /></dt>
-            <dd>微信扫一扫<br />房价点评，精彩发布</dd>
-          </dl>
-          <div class="clears"></div>
-        </div>
-        <div class="clears"></div>
-      </div>
-      <!--width1190/-->
-    </div>
-    <!--footer/-->
-    <div class="copy">Copyright@ 2015 邻居大妈 版权所有 沪ICP备1234567号-0&nbsp;&nbsp;&nbsp;&nbsp;技术支持：
-      <a target="_blank" href="http://www.webqin.net/">秦王网络</a>
+    <div class="copy">Copyright@ 2018 账号回收出售 版权所有 沪ICP备1234567号-0&nbsp;&nbsp;&nbsp;&nbsp;
     </div>
     <div class="bg100"></div>
   </div>
@@ -396,6 +369,7 @@ img {
 .header {
   width: 100%;
   height: 30px;
+  font-size: 14px;
   line-height: 30px;
   background: #f1f1f1;
 }

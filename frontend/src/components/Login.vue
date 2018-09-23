@@ -21,7 +21,7 @@
         
           <div class="reg-logo-right">
             <h3>如果您没有账号，请</h3>
-            <a href="#/reg" class="logo-a">立即注册</a>
+            <router-link to="/reg" class="logo-a">立即注册</router-link>
           </div>
           <!--reg-logo-right/-->
           <div class="clears"></div>

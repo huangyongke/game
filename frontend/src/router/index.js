@@ -42,7 +42,7 @@ export default new Router({
     },
     {
       path: '/buy',
-      name: 'Buy',
+      name: 'buy',
       component: Buy
     },
     {
@@ -57,17 +57,17 @@ export default new Router({
     },
     {
       path: '/sell',
-      name: 'Sell',
+      name: 'sell',
       component: Sell
     },
     {
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: Login
     },
     {
       path: '/reg',
-      name: 'Reg',
+      name: 'reg',
       component: Reg
     },
     {
@@ -82,7 +82,7 @@ export default new Router({
     },
     {
       path: '/profile/:id',
-      name: 'Profile',
+      name: 'profile',
       component: Profile
     },
     {
@@ -116,8 +116,8 @@ export default new Router({
           component: UserManage
         },
         {
-          path: 'buy',
-          name: 'buy',
+          path: 'buy_manage',
+          name: 'buy_manage',
           component: Buy_manage
         },
         {

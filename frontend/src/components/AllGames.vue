@@ -25,7 +25,13 @@
                     </Select>
                 </row>
                 <row class="query" style="width:130px">
-                    <label class="top-label">区域</label>
+                    <label class="top-label">战区</label>
+                    <Select v-model="fromdata.zone" placeholder="请选择区" style="width: 85px">
+                        <Option v-for="item in zonelist" :value="item.id">{{ item.name }}</Option>
+                    </Select>
+                </row>
+                <row class="query" style="width:130px">
+                    <label class="top-label">大区</label>
                     <Select v-model="fromdata.area" placeholder="请选择区" style="width: 85px">
                         <Option v-for="item in arealist" :value="item.id">{{ item.area }}</Option>
                     </Select>
@@ -90,7 +96,12 @@
                                 <Option v-for="item in typemodifylist" :value="item.id">{{ item.name }}</Option>
                             </Select>
                         </FormItem>
-                        <FormItem label="游戏区：" prop="area">
+                        <FormItem label="战区：" prop="zone">
+                            <i-select class="login-input" v-model="game.zone" placeholder="请选择游戏区">
+                                <i-option v-for="item in zonemodifylist" :key="item.id" :value="item.id">{{item.name}}</i-option>
+                            </i-select>
+                        </FormItem>
+                        <FormItem label="大区：" prop="area">
                             <i-select class="login-input" v-model="game.area" placeholder="请选择游戏区">
                                 <i-option v-for="item in areamodifylist" :key="item.id" :value="item.id">{{item.area}}</i-option>
                             </i-select>
@@ -169,7 +180,9 @@ export default {
       modify1: false,
       typelist: [],
       arealist: [],
+      zonelist: [],
       typemodifylist: [],
+      zonemodifylist: [],
       areamodifylist: [],
     default_file_list:[],
       statelist: [
@@ -195,6 +208,7 @@ export default {
         game_id: '',
         type: '',
         area: '',
+        zone:'',
         account: '',
         state: ''
       },
@@ -203,6 +217,7 @@ export default {
         name: '',
         type: '',
         area: '',
+        zone:'',
         account: '',
         password: '',
         level: '',
@@ -231,6 +246,11 @@ export default {
             trigger: 'change'
           }
         ],
+        zone: {
+          required: true,
+          validator: validateAreaCheck,
+          trigger: 'change'
+        },
         area: {
           required: true,
           validator: validateAreaCheck,
@@ -295,8 +315,8 @@ export default {
       },
       columns: [
         {
-          title: '游戏编号',
-          width: 90,
+          title: '编号',
+          width: 70,
           align: 'center',
           key: 'game_id'
         },
@@ -305,14 +325,20 @@ export default {
           key: 'game_name'
         },
         {
-          title: '游戏类型',
-          width: 120,
+          title: '游戏',
+          width: 100,
           align: 'center',
           key: 'type'
         },
         {
-          title: '游戏区',
-          width: 120,
+          title: '战区',
+          width: 100,
+          align: 'center',
+          key: 'zone'
+        },
+        {
+          title: '大区',
+          width: 100,
           align: 'center',
           key: 'area'
         },
@@ -382,8 +408,11 @@ export default {
                         this.game.avatar = params.row.avatar
                         this.getpicture(params.row.game_id)
                         setTimeout(() => {
+                        this.game.zone = params.row.zone_id
+                        }, 200);
+                        setTimeout(() => {
                         this.game.area = params.row.area_id
-                        }, 1000);
+                        }, 500);
                         
                     // this.modifyform.sell_id = params.row.sell_id
                     // this.modifyform.game_name = params.row.game_name
@@ -437,13 +466,41 @@ export default {
   },
   watch: {
     'fromdata.type': function() {
+      this.zonelist = []
+      this.fromdata.zone = ''
+      this.$http({
+        url: '/api/getZoneById',
+        method: 'GET',
+        params: {
+          type_id: this.fromdata.type
+        }
+      }).then(
+        function(res) {
+          this.zonelist = []
+          this.zonelist.push({
+            id: '',
+            name: '所有'
+          })
+          for (var i = 0; i < res.body.length; i++) {
+            this.zonelist.push(res.body[i])
+          }
+
+          // 返回总记录
+          //this.$router.push({path: '/hello', query:{data: res.body}})
+        },
+        function() {
+          this.$Message.error('获取数据失败')
+        }
+      )
+    },
+    'fromdata.zone': function() {
       this.arealist = []
       this.fromdata.area = ''
       this.$http({
         url: '/api/getAreaById',
         method: 'GET',
         params: {
-          type_id: this.fromdata.type
+          zone_id: this.fromdata.zone
         }
       }).then(
         function(res) {
@@ -465,13 +522,34 @@ export default {
       )
     },
     'game.type': function() {
+      this.zonemodifylist = []
+      this.game.zone = ''
+      this.$http({
+        url: '/api/getZoneById',
+        method: 'GET',
+        params: {
+          type_id: this.game.type
+        }
+      }).then(
+        function(res) {
+          this.zonemodifylist = res.body
+
+          // 返回总记录
+          //this.$router.push({path: '/hello', query:{data: res.body}})
+        },
+        function() {
+          this.$Message.error('获取数据失败')
+        }
+      )
+    },
+    'game.zone': function() {
       this.areamodifylist = []
       this.game.area = ''
       this.$http({
         url: '/api/getAreaById',
         method: 'GET',
         params: {
-          type_id: this.game.type
+          zone_id: this.game.zone
         }
       }).then(
         function(res) {
@@ -512,6 +590,7 @@ export default {
         body: {
           type_id: this.fromdata.type,
           game_id: this.fromdata.game_id,
+          zone_id: this.fromdata.zone,
           area_id: this.fromdata.area,
           game_name: this.fromdata.game_name,
           account: this.fromdata.account,
@@ -537,7 +616,6 @@ export default {
               onCancel: () => {}
             })
           } else {
-            console.log(res.body)
             this.table_data = res.body
           }
           // 返回总记录
@@ -549,9 +627,6 @@ export default {
       )
     },
     cancel: function() {},
-    Remove(index) {
-      console.log(index)
-    },
     modifyok(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
@@ -566,6 +641,7 @@ export default {
             game_id:this.game.game_id,
               name: this.game.name,
               type_id:this.game.type,
+              zone_id:this.game.zone,
               area_id:this.game.area,
               account: this.game.account,
               password: this.game.password,

@@ -32,7 +32,7 @@ export default {
         method: 'Get'
       }).then(function(res) {
         if (res.body === 'login') {
-          this.$Modal.warning({
+          this.$Modal.confirm({
             title: '您还没有登录',
             content: '<p>是否跳转到登录界面登录</p>',
             onOk: () => {

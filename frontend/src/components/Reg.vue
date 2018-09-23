@@ -33,7 +33,7 @@
           </Form>
           <div class="reg-logo-right">
             <h3>如果您已有账号，请</h3>
-            <a href="#/login" class="logo-a">立即登录</a>
+            <router-link to="/login" class="logo-a">立即登录</router-link>
           </div>
           <!--reg-logo-right/-->
           <div class="clears"></div>

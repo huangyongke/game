@@ -6,15 +6,21 @@
                     <label class="top-label">编号</label>
                     <i-input v-model="fromdata.id" @on-enter="getdata()" placeholder="请输入编号" style="width: 100px"></i-input>
                 </row>
-                <row class="query" style="width:200px" >
-                    <label class="top-label">游戏类型</label>
-                    <Select v-model="fromdata.type" placeholder="请选择游戏类型" style="width: 130px">
+                <row class="query" style="width:145px" >
+                    <label class="top-label">游戏</label>
+                    <Select v-model="fromdata.type" placeholder="请选择游戏" style="width: 105px">
                         <Option v-for="item in typelist" :value="item.id">{{ item.name }}</Option>
                     </Select>
                 </row>
-                <row class="query" style="width:200px">
-                    <label class="top-label">游戏区域</label>
-                    <Select v-model="fromdata.area" placeholder="请选择游戏区" style="width: 130px">
+                <row class="query" style="width:145px">
+                    <label class="top-label">战区</label>
+                    <Select v-model="fromdata.zone" placeholder="请选择战区" style="width: 105px">
+                        <Option v-for="item in zonelist" :value="item.id">{{ item.name }}</Option>
+                    </Select>
+                </row>
+                <row class="query" style="width:145px">
+                    <label class="top-label">大区</label>
+                    <Select v-model="fromdata.area" placeholder="请选择大区" style="width: 105px">
                         <Option v-for="item in arealist" :value="item.id">{{ item.area }}</Option>
                     </Select>
                 </row>
@@ -47,10 +53,12 @@ export default {
       id: '',
       total_price:0,
       typelist: [],
+      zonelist: [],
       arealist: [],
       fromdata: {
         id: '',
         type: '',
+        zone: '',
         area: '',
         time: []
       },
@@ -116,10 +124,17 @@ export default {
         },
         {
           title: '游戏类型',
+          align: 'center',
           key: 'type'
         },
         {
-          title: '游戏区',
+          title: '战区',
+          align: 'center',
+          key: 'zone'
+        },
+        {
+          title: '大区',
+          align: 'center',
           key: 'area'
         },
         {
@@ -175,13 +190,41 @@ export default {
   },
   watch: {
     'fromdata.type': function() {
+      this.zonelist = []
+      this.fromdata.zone =''
+      this.$http({
+        url: '/api/getZoneById',
+        method: 'GET',
+        params: {
+          type_id: this.fromdata.type
+        }
+      }).then(
+        function(res) {
+          this.zonelist = []
+          this.zonelist.push({
+        id: '',
+        name:'所有'
+      })
+      for(var i=0; i<res.body.length;i++){ 
+        this.zonelist.push(res.body[i])
+      }
+
+          // 返回总记录
+          //this.$router.push({path: '/hello', query:{data: res.body}})
+        },
+        function() {
+          this.$Message.error('获取数据失败')
+        }
+      )
+    },
+    'fromdata.zone': function() {
       this.arealist = []
       this.fromdata.area =''
       this.$http({
         url: '/api/getAreaById',
         method: 'GET',
         params: {
-          type_id: this.fromdata.type
+          zone_id: this.fromdata.zone
         }
       }).then(
         function(res) {
@@ -211,6 +254,7 @@ export default {
         method: 'POST',
         body: {
           buy_id: this.fromdata.id,
+          zone_id: this.fromdata.zone,
           area_id: this.fromdata.area,
           category_id: this.fromdata.type,
           start_time: this.start_time,
@@ -276,8 +320,7 @@ export default {
 }
 
 .search {
-  width: 10%;
-  margin-left: 2%;
+  width: 50px;
   display: inline-block;
 }
 
