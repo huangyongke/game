@@ -63,24 +63,25 @@
     <div class="xinren">
       <div class="width1190">
         <dl>
-          <img src="./assets/icon1.jpg" style="float: left;">
+          <div>
+          <img src="./assets/icon1.jpg" style="float: left;margin-left:30%;">
           <dt>承诺</dt>
-          <dd>真实可信100%真号<br />链家承诺，假一赔百</dd>
+          </div>
         </dl>
         <dl>
-          <img src="./assets/icon2.jpg" style="float: left;">
+          <img src="./assets/icon2.jpg" style="float: left;margin-left:30%;">
           <dt>权威</dt>
-          <dd>独家房源 覆盖全城<br />房源信息最权威覆盖最广</dd>
+          
         </dl>
         <dl>
-          <img src="./assets/icon3.jpg" style="float: left;">
+          <img src="./assets/icon3.jpg" style="float: left;margin-left:30%;">
           <dt>信赖</dt>
-          <dd>万名置业顾问 专业服务<br />百万家庭的信赖之选</dd>
+          
         </dl>
         <dl>
-          <img src="./assets/icon4.jpg" style="float: left;">
+          <img src="./assets/icon4.jpg" style="float: left;margin-left:30%;">
           <dt>安全</dt>
-          <dd>安心承诺 保驾护航<br />多重风险防范机制 无后顾之忧</dd>
+          
         </dl>
         <div class="clears"></div>
       </div>

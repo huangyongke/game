@@ -119,7 +119,7 @@ exports.notify = function (req, res) {
 	var sell_id = orderFormat[0]
 	var game_id = orderFormat[1]
 	console.log(req.body)
-//	if (server_key == key) {
+	if (server_key == key) {
 		Sell.findSellGameById(sell_id, function (game) {
 			if (game[0]) {
 				if (game[0].state == 1) {
@@ -139,9 +139,9 @@ exports.notify = function (req, res) {
 				res.send('undefined')
 			}
 		})
-//	}else{
-//		res.send('error')
-//	}
+	}else{
+		res.send('error')
+	}
 }
 exports.sellGame = function (req, res) {
 	var user_id = req.session.user.id

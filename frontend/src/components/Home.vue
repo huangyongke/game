@@ -2,14 +2,14 @@
   <div style="width:100%">
     <Carousel autoplay>
       <Carousel-item>
-        <img src="../assets/cf4.jpg" class="banner" />
+        <img src="../assets/cf6.jpg" class="banner" />
       </Carousel-item>
       <Carousel-item>
+        <img src="../assets/cf7.jpg" class="banner" /> </Carousel-item>
+      <Carousel-item>
+        <img src="../assets/cf4.jpg" class="banner" /> </Carousel-item>
+      <Carousel-item>
         <img src="../assets/cf2.jpg" class="banner" /> </Carousel-item>
-      <Carousel-item>
-        <img src="../assets/cf3.jpg" class="banner" /> </Carousel-item>
-      <Carousel-item>
-        <img src="../assets/cf1.jpg" class="banner" /> </Carousel-item>
     </Carousel>
     <div class="content">
       <div class="width1190">
