@@ -39,7 +39,6 @@ export default {
   },
   computed: {},
   mounted() {
-    
   },
   methods: {
     //for vuex

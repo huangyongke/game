@@ -24,7 +24,7 @@ import SellRecord from '@/components/SellRecord'
 import BuyRecord from '@/components/BuyRecord'
 import AllGames from '@/components/AllGames'
 import NotFind from '@/components/NotFind'
-import About from '@/components/About'
+import About from '@/components/about'
 
 Vue.use(Router)
 

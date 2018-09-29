@@ -88,7 +88,7 @@
       <!--width1190/-->
     </div>
     <!--xinren/-->
-    <div class="copy">Copyright@ 2018 账号回收出售 版权所有 沪ICP备1234567号-0&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="copy">Copyright@ 2018 账号回收出售 版权所有 冀ICP备18029764号&nbsp;&nbsp;&nbsp;&nbsp;
     </div>
     <div class="bg100"></div>
   </div>
