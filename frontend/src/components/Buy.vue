@@ -52,7 +52,7 @@
         <div class="index-fang-list">
           <dl v-for="item in gamedata">
             <dt>
-              <router-link :to="'/profile/'+item.sell_id"><img :src="'/static/img/'+item.avatar" width="286" height="188" /></router-link>
+              <router-link :to="'/profile/'+item.sell_id"><img :src="'/image/'+item.avatar" width="286" height="188" /></router-link>
             </dt>
             <dd>
               <h3>

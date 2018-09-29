@@ -3,7 +3,7 @@
         <div class="content">
             <div class="width1190" style="width:1000px;">
                 <div class="proImg fl">
-                    <img :src="'/static/img/'+info.avatar" />
+                    <img :src="'/image/'+info.avatar" />
                 </div>
 
                 <!--proImg/-->
@@ -51,7 +51,7 @@
             </div>
             <!--proList/-->
             <div class="proList" :style="{display:panel2[1]}">
-              <img v-for="img in info.images" :src="'/static/img/'+img.image" width="23%" class="image">
+              <img v-for="img in info.images" :src="'/image/'+img.image" width="23%" class="image">
             </div>
             <!--proList/-->
         </div>

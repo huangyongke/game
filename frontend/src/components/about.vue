@@ -37,7 +37,6 @@ export default {
       
     }
   },
-  //这两个map是vuex的部分
   computed: {},
   mounted() {
     

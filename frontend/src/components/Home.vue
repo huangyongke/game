@@ -19,7 +19,7 @@
         <div class="index-fang-list">
           <dl v-for="game in recommend">
             <dt>
-              <router-link :to="'/profile/'+game['sell.id']"><img :src="'/static/img/'+game.avatar" width="286" height="188" /></router-link>
+              <router-link :to="'/profile/'+game['sell.id']"><img :src="'/image/'+game.avatar" width="286" height="188" /></router-link>
             </dt>
             <dd>
               <h3>
@@ -48,7 +48,7 @@
         <div class="index-fang-list">
           <dl v-for="game in news">
             <dt>
-              <router-link :to="'/profile/'+game['sell.id']"><img :src="'/static/img/'+game.avatar" width="286" height="188" /></router-link>
+              <router-link :to="'/profile/'+game['sell.id']"><img :src="'/image/'+game.avatar" width="286" height="188" /></router-link>
             </dt>
             <dd>
               <h3>

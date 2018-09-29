@@ -55,7 +55,7 @@
             <Row>
                 <i-col span='12'>
                     <div class="image">
-                        <img :src="'/static/img/'+game.avatar" width="140" height="100" class="avatar">
+                        <img :src="'/image/'+game.avatar" width="140" height="100" class="avatar">
                         <Upload name='image' ref='upload1' action="/api/upload" :show-upload-list="true" :on-success="handleavatarSuccess" :on-remove="handleavatarRemove" :format="['jpg','jpeg','png','gif']" :max-size="2048" :on-format-error="handleFormatError" :on-exceeded-size="handleMaxSize" :before-upload="handleBeforeUpload">
                             <i-button type="ghost" icon="ios-cloud-upload-outline">上传账号图片</i-button>
                         </Upload>
@@ -66,7 +66,7 @@
                         <h2 class="title">添加图片描述</h2>
                         <div class="demo-upload-list" v-for="(item,index) in uploadList">
                             <template v-if="item.status === 'finished'">
-                                <img :src="'/static/img/'+item.url">
+                                <img :src="'/image/'+item.url">
                                 <div class="demo-upload-list-cover">
                                     <!-- <Icon type="ios-eye-outline" @click="handleView(item.name)"></Icon> -->
                                     <a @click="handleRemove(index)"><Icon type="ios-trash-outline"></Icon></a>
