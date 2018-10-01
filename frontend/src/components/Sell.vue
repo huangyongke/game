@@ -2,10 +2,13 @@
     <div>
         <div class="ban">
               <i-button type="success" @click="buttonclick" class="btn" long>申请卖号，免费估价</i-button>
+              <Card class="card">
+                <h2 style="margin:0 auto;width:100px;">注意事项</h2>
+                <p>您需要联系客服qq，上传身份证正反面和本人手持身份证的视频</p>
+              </Card>
             <!--width1190/-->
         </div>
         <!--content/-->
-
     </div>
 </template>
       
@@ -69,11 +72,16 @@ export default {
   background-image: url(../assets/ban.jpg);
 }
 .btn{
-  position: relative;
   width: 350px;
-  left: 20%;
-  top: 35%;
+  margin-left: 20%;
+  margin-top: 200px;
   font-size: 18px;
   line-height: 30px;
+}
+.card{
+  width: 350px;
+  left: 20%;
+  height: 100px;
+  margin-top: 50px;
 }
 </style>

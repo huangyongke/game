@@ -130,7 +130,7 @@ exports.findRecommendGames = function (callback) {
         where: {
             state: 1
         },
-        limit: 4,
+        limit: 8,
         order: [
             ['updatedAt', 'DESC']
         ],

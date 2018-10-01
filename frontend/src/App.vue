@@ -28,6 +28,7 @@
         <h1 class="logo">
           <router-link to="/index"><img src="./assets/logo.png" width="200px" height="60px" /></router-link>
         </h1>
+        <div style="float:right"></div>
         <div class="phones">
           <strong>1915803210</strong>
         </div>
@@ -43,10 +44,10 @@
             <router-link to="/index">首页</router-link>
           </li>
           <li>
-            <router-link to="/buy">买号</router-link>
+            <router-link to="/buy">购买账号</router-link>
           </li>
           <li>
-            <router-link to="/sell">卖号</router-link>
+            <router-link to="/sell">出售账号</router-link>
           </li>
           <li>
             <router-link to="/about">关于我们</router-link>
@@ -479,6 +480,7 @@ img {
   color: #fff;
   font-size: 16px;
   text-align: center;
+  font-family:"FangSong";
 }
 .nav li a:hover {
   background: #222;

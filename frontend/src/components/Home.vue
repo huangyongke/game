@@ -1,19 +1,31 @@
 <template>
   <div style="width:100%">
+    <!-- <div style="width:50%;float:left"> -->
     <Carousel autoplay>
+      
       <Carousel-item>
         <img src="../assets/cf6.jpg" class="banner" />
       </Carousel-item>
       <Carousel-item>
         <img src="../assets/cf7.jpg" class="banner" /> </Carousel-item>
+        <Carousel-item>
+        <img src="../assets/cf4.jpg" class="banner" /> </Carousel-item>
+      <Carousel-item>
+        <img src="../assets/cf2.jpg" class="banner" /> </Carousel-item>
+    </Carousel>
+    <!-- </div>
+    <div style="width:50%;float:right">
+    <Carousel autoplay>
       <Carousel-item>
         <img src="../assets/cf4.jpg" class="banner" /> </Carousel-item>
       <Carousel-item>
         <img src="../assets/cf2.jpg" class="banner" /> </Carousel-item>
     </Carousel>
+    </div> -->
+    <div class="clears"></div>
     <div class="content">
       <div class="width1190">
-        <h2 class="title">推荐
+        <h2 class="title">今日特价
           <router-link to="/buy">更多&gt;&gt;</router-link>
         </h2>
         <div class="index-fang-list">
@@ -42,7 +54,7 @@
         </div>
         <!--index-fang-list/-->
 
-        <h2 class="title">新号
+        <!-- <h2 class="title">新号
           <router-link to="/buy">更多&gt;&gt;</router-link>
         </h2>
         <div class="index-fang-list">
@@ -68,7 +80,7 @@
             </dd>
           </dl>
           <div class="clears"></div>
-        </div>
+        </div> -->
         <!--index-fang-list/-->
       </div>
       <!--width1190/-->
@@ -105,20 +117,20 @@ export default {
       function() {
         this.$Message.error('获取数据失败')
       }
-    ),
-    this.$http({
-      url: '/api/getNewGames',
-      method: 'GET'
-    }).then(
-      function(res) {
-        this.news = res.body.rows
-        // 返回总记录
-        //this.$router.push({path: '/hello', query:{data: res.body}})
-      },
-      function() {
-        this.$Message.error('获取数据失败')
-      }
     )
+    // this.$http({
+    //   url: '/api/getNewGames',
+    //   method: 'GET'
+    // }).then(
+    //   function(res) {
+    //     this.news = res.body.rows
+    //     // 返回总记录
+    //     //this.$router.push({path: '/hello', query:{data: res.body}})
+    //   },
+    //   function() {
+    //     this.$Message.error('获取数据失败')
+    //   }
+    // )
   },
   methods: {
     //for vuex

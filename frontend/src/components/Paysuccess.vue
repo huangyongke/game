@@ -91,6 +91,9 @@ export default {
             }else if(res.body[0].code === 2){
               this.game = res.body[0]
               this.code = 2
+            }else if(res.body[0].code === 1){
+              this.game = res.body[0]
+              this.code = 1
             }else{
 
               console.log(res.body)

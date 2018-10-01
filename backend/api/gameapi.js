@@ -237,6 +237,7 @@ exports.paySuccess = function (req, res) {
 		}else{
 			Record.findAllSellRecord(null,game_id,user_id,null,null,null,null,null,function(result){
 				if(result[0]){
+					result[0].code = 1
 					res.send(result)
 				}else{
 					result[0] = {}
