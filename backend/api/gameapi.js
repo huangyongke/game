@@ -140,6 +140,7 @@ exports.notify = function (req, res) {
 			}
 		})
 	}else{
+		console.log('error')
 		res.send('error')
 	}
 }
@@ -235,13 +236,13 @@ exports.paySuccess = function (req, res) {
 			})
 			
 		}else{
-			Record.findAllSellRecord(null,game_id,user_id,null,null,null,null,null,function(result){
+			Record.findAllSellRecord(null,game_id,user_id,null,null,null,null,null,null,function(result){
 				if(result[0]){
 					result[0].code = 1
 					res.send(result)
 				}else{
 					result[0] = {}
-					result[0].code = 2
+					result[0].code = 3
 					res.send(result)
 				}
 			})	

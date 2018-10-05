@@ -19,13 +19,17 @@
       <Card v-if="code == 1" style="width:40%;font-size:20px;margin:0 auto;">
       <p>恭喜您购买 {{game.game_name}} 成功</p>
       <p>游戏账户是：{{game.account}}</p>
-      <p>游戏密码是：{{gmae.password}}</p>
+      <p>游戏密码是：{{game.password}}</p>
       <p>您也可以在历史记录-买号记录中查看</p>
        </Card>
       <Card v-else-if="code == 2" style="width:40%;font-size:20px;margin:0 auto;">
       <p>恭喜您购买游戏 {{game.name}} 成功</p>
       <p>请您等待系统处理</p>
       <p>您可以在 历史记录-买号记录 中查看</p>
+      </Card>
+      <Card v-else-if="code == 3" style="width:40%;font-size:20px;margin:0 auto;">
+        <p>对不起!购买失败</p>
+      <p>该产品已卖出，请您查看其它产品</p>
       </Card>
     </div>
   </div>
@@ -50,12 +54,12 @@ export default {
   computed: {},
   mounted() {
     this.orderid = this.$route.query.orderid
-    console.log(this.orderid)
+    
     if(this.orderid){
       var orderFormat =(this.orderid).split("_");
       this.sell_id = orderFormat[0]
       this.game_id = orderFormat[1]
-      console.log(this.sell_id)
+      
       this.paySuccess()
     }else{
       this.$Modal.warning({
@@ -94,6 +98,9 @@ export default {
             }else if(res.body[0].code === 1){
               this.game = res.body[0]
               this.code = 1
+            }else if(res.body[0].code === 3){
+              this.game = res.body[0]
+              this.code = 3
             }else{
 
               console.log(res.body)
