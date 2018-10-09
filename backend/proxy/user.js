@@ -45,7 +45,7 @@ exports.findOneUserByName = function(name,callback){
     })
 }
 
-exports.findAllUsers = function(user_id,name,phone,email,admin,callback){
+exports.findAllUsers = function(user_id,name,phone,email,qq,admin,callback){
     var where = "1 = 1 ";
       if(user_id){
           where += " and id = " + user_id; 
@@ -56,6 +56,9 @@ exports.findAllUsers = function(user_id,name,phone,email,admin,callback){
       if(phone){
           where += " and phone = " + phone; 
       }
+      if(qq){
+        where += " and qq = " + qq ; 
+    }
       if(email){
           where += " and email like '%" + email + "%'"; 
       }

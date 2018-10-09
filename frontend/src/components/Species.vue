@@ -756,6 +756,13 @@ export default {
             })
           } else {
             this.type_table_data = res.body
+            if(this.typecurrentrow.id){
+              for (var i = 0; i < this.type_table_data.length; i++) {
+                if(this.typecurrentrow.id == this.type_table_data[i].id){
+                  this.type_table_data[i]._highlight = true
+                }
+              }
+            }
             // for (var i = 0; i < this.table_data.length; i++) {
             //   this.table_data[i].admin = this.table_data[i].admin
             //     ? '管理员'
@@ -785,6 +792,13 @@ export default {
         }).then(
           function(res) {
             this.zone_table_data = res.body
+            if(this.zonecurrentrow.id){
+              for (var i = 0; i < this.zone_table_data.length; i++) {
+                if(this.zonecurrentrow.id == this.zone_table_data[i].id){
+                  this.zone_table_data[i]._highlight = true
+                }
+              }
+            }
             // 返回总记录
             //this.$router.push({path: '/hello', query:{data: res.body}})
           },
@@ -809,6 +823,13 @@ export default {
         }).then(
           function(res) {
             this.area_table_data = res.body
+            if(this.areacurrentrow.id){
+              for (var i = 0; i < this.area_table_data.length; i++) {
+                if(this.areacurrentrow.id == this.area_table_data[i].id){
+                  this.area_table_data[i]._highlight = true
+                }
+              }
+            }
             // 返回总记录
             //this.$router.push({path: '/hello', query:{data: res.body}})
           },

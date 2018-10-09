@@ -17,14 +17,14 @@
             <FormItem label="手机号：" prop="phone">
               <Input class="login-input" v-model="formValidate.phone" placeholder="请输入手机号">
             </FormItem>
-            <FormItem label="邮箱：" prop="email">
-              <Input class="login-input" v-model="formValidate.email" placeholder="请输入邮箱">
-            </FormItem>
             <FormItem label="QQ号:" prop="qq">
               <Input class="login-input" v-model="formValidate.qq" placeholder="请输入QQ号">
             </FormItem>
             <FormItem label="微信号:" prop="weixin">
               <Input class="login-input" v-model="formValidate.weixin" placeholder="请输入微信号">
+            </FormItem>
+            <FormItem label="邮箱：" prop="email">
+              <Input class="login-input" v-model="formValidate.email" placeholder="请输入邮箱">
             </FormItem>
             <FormItem>
               <Button type="primary" @click="handleSubmit('formValidate')" style="margin-left: 5px">注册</Button>
@@ -104,9 +104,9 @@ export default {
         ],
         email: [
           {
-            required: true,
-            message: '邮箱不能为空',
-            trigger: 'blur'
+            required: false,
+            // message: '邮箱不能为空',
+            // trigger: 'blur'
           },
           {
             type: 'email',
@@ -116,7 +116,9 @@ export default {
         ],
         qq: [
           {
-            required: false
+            required: true,
+            message: 'QQ号不能为空',
+            trigger: 'blur'
           }
         ],
         weixin: [

@@ -1,30 +1,30 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
-import Pay from '@/components/Pay'
-import Paysuccess from '@/components/Paysuccess'
-import Buy from '@/components/Buy'
-import Sell from '@/components/Sell'
-import Login from '@/components/Login'
-import Reg from '@/components/Reg'
-import Profile from '@/components/Profile'
-import User from '@/components/User'
-import Manage from '@/components/Manage'
-import Buy_manage from '@/components/Buy_manage'
-import Registration from '@/components/Registration'
-import Forget from '@/components/Forget'
-import ModifyPassword from '@/components/ModifyPassword'
-import PersonalBuy from '@/components/PersonalBuy'
-import PersonalSell from '@/components/PersonalSell'
-import UserManage from '@/components/UserManage'
-import Species from '@/components/Species'
-import StaySell from '@/components/StaySell'
-import StayBuy from '@/components/StayBuy'
-import SellRecord from '@/components/SellRecord'
-import BuyRecord from '@/components/BuyRecord'
-import AllGames from '@/components/AllGames'
-import NotFind from '@/components/NotFind'
-import About from '@/components/about'
+//import Home from '@/components/Home'
+//import Pay from '@/components/Pay'
+//import Paysuccess from '@/components/Paysuccess'
+//import Buy from '@/components/Buy'
+//import Sell from '@/components/Sell'
+//import Login from '@/components/Login'
+//import Reg from '@/components/Reg'
+//import Profile from '@/components/Profile'
+//import User from '@/components/User'
+//import Manage from '@/components/Manage'
+//import Buy_manage from '@/components/Buy_manage'
+//import Registration from '@/components/Registration'
+//import Forget from '@/components/Forget'
+//import ModifyPassword from '@/components/ModifyPassword'
+//import PersonalBuy from '@/components/PersonalBuy'
+//import PersonalSell from '@/components/PersonalSell'
+//import UserManage from '@/components/UserManage'
+//import Species from '@/components/Species'
+//import StaySell from '@/components/StaySell'
+//import StayBuy from '@/components/StayBuy'
+//import SellRecord from '@/components/SellRecord'
+//import BuyRecord from '@/components/BuyRecord'
+//import AllGames from '@/components/AllGames'
+//import NotFind from '@/components/NotFind'
+//import About from '@/components/about'
 
 Vue.use(Router)
 
@@ -34,134 +34,135 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: resolve => require(['@/components/Home'],resolve)
     },
     {
       path: '/index',
       name: 'index',
-      component: Home
+      component: resolve => require(['@/components/Home'],resolve)
     },
     {
       path: '/buy',
       name: 'buy',
-      component: Buy
+      component: resolve => require(['@/components/Buy'],resolve)
     },
     {
       path: '/pay',
       name: 'pay',
-      component: Pay
+      component: resolve => require(['@/components/Pay'],resolve)
     },
     {
       path: '/paySuccess',
       name: 'paySuccess',
-      component: Paysuccess
+      component: resolve => require(['@/components/Paysuccess'],resolve)
     },
     {
       path: '/sell',
       name: 'sell',
-      component: Sell
+      component: resolve => require(['@/components/Sell'],resolve)
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: resolve => require(['@/components/Login'],resolve)
     },
     {
       path: '/reg',
       name: 'reg',
-      component: Reg
+      component: resolve => require(['@/components/Reg'],resolve),
     },
     {
       path: '/registration',
       name: 'registration',
-      component: Registration
+      component: resolve => require(['@/components/Registration'],resolve),
     },
     {
       path: '/forget',
       name: 'forget',
-      component: Forget
+      component: resolve => require(['@/components/Forget'],resolve),
     },
     {
       path: '/about',
       name: 'about',
-      component: About
+      component: resolve => require(['@/components/about'],resolve),
     },
     {
       path: '/profile/:id',
       name: 'profile',
-      component: Profile
+      component: resolve => require(['@/components/Profile'],resolve),
     },
     {
       path: '/manage',
       name: 'manage',
-      component: Manage,
+      component: resolve => require(['@/components/Manage'],resolve),
       children: [  //这里就是二级路由的配置
         {
           path: 'modifyPassword',
           name: 'modifyPassword',
-          component: ModifyPassword
+          component: resolve => require(['@/components/ModifyPassword'],resolve),
+//          component: ModifyPassword
         },
         {
           path: 'user',
           name: 'user',
-          component: User
+          component: resolve => require(['@/components/User'],resolve),
         },
         {
           path: 'personalBuy',
           name: 'personalBuy',
-          component: PersonalBuy
+          component: resolve => require(['@/components/PersonalBuy'],resolve),
         },
         {
           path: 'personalSell',
           name: 'personalSell',
-          component: PersonalSell
+          component: resolve => require(['@/components/PersonalSell'],resolve),
         },
         {
           path: 'userManage',
           name: 'userManage',
-          component: UserManage
+          component: resolve => require(['@/components/UserManage'],resolve),
         },
         {
           path: 'buy_manage',
           name: 'buy_manage',
-          component: Buy_manage
+          component: resolve => require(['@/components/Buy_manage'],resolve),
         },
         {
           path: 'species',
           name: 'species',
-          component: Species
+          component:  resolve => require(['@/components/Species'],resolve),
         },
         {
           path: 'staySell',
           name: 'staySell',
-          component: StaySell
+          component:  resolve => require(['@/components/StaySell'],resolve),
         },
         {
           path: 'stayBuy',
           name: 'stayBuy',
-          component: StayBuy
+          component:  resolve => require(['@/components/StayBuy'],resolve),
         },
         {
           path: 'sellRecord',
           name: 'sellRecord',
-          component: SellRecord
+          component:  resolve => require(['@/components/SellRecord'],resolve),
         },
         {
           path: 'buyRecord',
           name: 'buyRecord',
-          component: BuyRecord
+          component:  resolve => require(['@/components/BuyRecord'],resolve),
         },
         {
           path: 'allGames',
           name: 'allGames',
-          component: AllGames
+          component:  resolve => require(['@/components/AllGames'],resolve),
         },
       ]
     },
     {
       path: '*',
       name: 'notFind',
-      component: NotFind
+      component:  resolve => require(['@/components/NotFind'],resolve),
     },
     
   ]

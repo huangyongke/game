@@ -1,46 +1,58 @@
 <template>
   <div>
-    <div class="content">
-      <Row>
-        <i-col span="5">
-          
-            <Menu theme="dark" :open-names="opens" accordion :active-name='path' @on-select='select'>
+    <div class='content' :class="{'main-hide-text': spanLeft < 4}">
+      <Row type='flex'>
+        <i-col :span="spanLeft" class='main-menu-left'>
+            <Menu theme="dark" :open-names="opens" width='auto' accordion :active-name='path' @on-select='select'>
               <Submenu name="1" key='1'>
                 <template slot="title">
-                  <Icon type="ios-people" /> 账户管理
+                  <Icon type="ios-people" :size='iconSize'/> 
+                  <span class='main-text'>账户管理</span>
                 </template>
-                <MenuItem name="user"> 我的资料 </MenuItem>
-                <MenuItem name="modifyPassword"> 修改密码 </MenuItem>
+                <Menu-item name="user"> 我的资料 </Menu-item>
+                <Menu-item name="modifyPassword"> 修改密码 </Menu-item>
               </Submenu>
               <Submenu name="2" key='2'>
                 <template slot='title'>
-                  <Icon type='ios-cart'></Icon>历史记录
+                  <Icon type='ios-cart' :size='iconSize'></Icon>
+                  <span class='main-text'>历史记录</span>
                 </template>
-                <MenuItem name="personalBuy">买号记录</MenuItem>
-                <MenuItem name="personalSell">卖号记录</MenuItem>
+                <Menu-item name="personalBuy">买号记录</Menu-item>
+                <Menu-item name="personalSell">卖号记录</Menu-item>
               </Submenu>
               <Submenu name="3" key='3' v-if="admin == 1">
                 <template slot="title">
-                  <Icon type="ios-paper" /> 后台管理
+                  <Icon type="ios-paper" :size='iconSize'/> 
+                  <span class='main-text'>后台管理</span>
                 </template>
-                <MenuItem name="userManage">用户管理</MenuItem>
-                <MenuItem name="species">游戏管理</MenuItem>
-                <MenuItem name="buy_manage">购买游戏</MenuItem>
-                <MenuItem name="allGames">所有游戏</MenuItem>
-                <MenuItem name="staySell">待卖游戏</MenuItem>
-                <MenuItem name="stayBuy">待买游戏</MenuItem>
-                <MenuItem name="sellRecord">销售记录</MenuItem>
-                <MenuItem name="buyRecord">购买记录</MenuItem>
+                <Menu-item name="userManage">用户管理</Menu-item>
+                <Menu-item name="species">游戏管理</Menu-item>
+                <Menu-item name="buy_manage">购买游戏</Menu-item>
+                <Menu-item name="allGames">所有游戏</Menu-item>
+                <Menu-item name="staySell">待卖游戏</Menu-item>
+                <Menu-item name="stayBuy">待买游戏</Menu-item>
+                <Menu-item name="sellRecord">销售记录</Menu-item>
+                <Menu-item name="buyRecord">购买记录</Menu-item>
               </Submenu>
             </Menu>
          
         </i-col>
-        <i-col span='19'>
+        <i-col :span='spanRight' class="right">
+           <div class='main-header' v-if="admin == 1">
+            <i-button type='text' @click='toggleClick' id='toggle-click'>
+              <Icon type='navicon' size='32'></Icon>
+            </i-button>
+          </div> 
+          <div class='right-content'>
+            <router-view></router-view>
+          </div>
+        </i-col>
+        <!-- <i-col span='19'>
           <div class="right-content">
             <router-view></router-view>
           </div>
 
-        </i-col>
+        </i-col> -->
       </Row>
       <div class="clearfix"></div>
     </div>
@@ -55,13 +67,19 @@ export default {
   name: 'Manage',
   data() {
     return {
+      spanLeft: 4,
+      spanRight: 20,
       path: '',
       admin: 1,
       opens: [],
     }
   },
   //这两个map是vuex的部分
-  computed: {},
+  computed: {
+    iconSize () {
+      return this.spanLeft === 4 ? 14 : 24
+    }
+  },
   created() {
     if (
       this.$route.name === 'personalBuy' ||
@@ -83,6 +101,15 @@ export default {
   },
   methods: {
     //for vuex
+    toggleClick () {
+      if (this.spanLeft === 4) {
+        this.spanLeft = 2
+        this.spanRight = 22
+      } else {
+        this.spanLeft = 4
+        this.spanRight = 20
+      }
+    },
     getSession() {
       this.$http({
         url: '/api/getSession',
@@ -133,5 +160,17 @@ export default {
 
 .content {
   margin: 0 20px;
+}
+.right{
+  padding-left: 20px;
+}
+.main-header {
+  
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+}
+
+.main-hide-text .main-text {
+  display: none;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div style="width:100%">
-    <!-- <div style="width:50%;float:left"> -->
+    <div  style="width:90%;margin:0 auto;">
+    <div style="width:48%;float:left">
     <Carousel autoplay>
       
       <Carousel-item>
@@ -13,15 +14,13 @@
       <Carousel-item>
         <img src="../assets/cf2.jpg" class="banner" /> </Carousel-item>
     </Carousel>
-    <!-- </div>
-    <div style="width:50%;float:right">
-    <Carousel autoplay>
-      <Carousel-item>
-        <img src="../assets/cf4.jpg" class="banner" /> </Carousel-item>
-      <Carousel-item>
-        <img src="../assets/cf2.jpg" class="banner" /> </Carousel-item>
-    </Carousel>
-    </div> -->
+    </div>
+    <div style="width:48%;float:right">
+    
+        <img src="../assets/about.jpg" class="banner" /> </Carousel-item>
+      
+    </div>
+    </div>
     <div class="clears"></div>
     <div class="content">
       <div class="width1190">

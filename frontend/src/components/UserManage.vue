@@ -15,8 +15,8 @@
           <i-input v-model="fromdata.phone" @on-enter="getdata()" placeholder="请输入手机号" style="width: 100px"></i-input>
         </row>
         <row class="query">
-          <label class="top-label">邮箱</label>
-          <i-input v-model="fromdata.email" @on-enter="getdata()" placeholder="请输入邮箱" style="width: 100px"></i-input>
+          <label class="top-label">QQ号</label>
+          <i-input v-model="fromdata.qq" @on-enter="getdata()" placeholder="请输入QQ号" style="width: 100px"></i-input>
 
         </row>
         <row class="query" style="width:200px">
@@ -65,6 +65,7 @@ export default {
         name: '',
         phone: '',
         email: '',
+        qq:'',
         admin: ''
       },
       columns: [
@@ -184,6 +185,7 @@ export default {
         body: {
           user_id: this.fromdata.id,
           phone: this.fromdata.phone,
+          qq:this.fromdata.qq,
           email: this.fromdata.email,
           admin: this.fromdata.admin,
           name: this.fromdata.name
